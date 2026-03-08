@@ -13,12 +13,19 @@ function App() {
     const name = todoNameRef.current.value;
     setTodos((prevTodos) => {
       return [...prevTodos, {id: uuidv4(), name: name, completed: false}];
-      todoNameRef.current.value = null;
     })
+          todoNameRef.current.value = null;
+
+  };
+  const toggleTodo = (id) => {
+    const newTodos = [...todos];
+    const todo = newTodos.find((todo) => todo.id ===id);
+    todo.completed = !todo.completed;
+    setTodos(newTodos);
   };
   return (
     <>
-      <TodoList todos = {todos}/>
+      <TodoList todos = {todos} toggleTodo = {toggleTodo}/>
       <input type = "text" ref = {todoNameRef} />
       <button onClick={handleAddTodo}>Add Todo</button>
       <button>Delete Todo</button>
@@ -27,4 +34,4 @@ function App() {
   );
 }
 
-export default App;
+export default App
